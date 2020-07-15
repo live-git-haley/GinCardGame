@@ -60,6 +60,19 @@ public class Card {
 		return print;
 	}
 	
+	public static List<Card> replace(List<Card> list, Card h, Card remove){
+		list.add(h);
+		list.remove(remove);
+		return(list);
+	}
+	
+	public static List<Card> replace(List<Card> list, Card h, int remove){
+		list.add(h);
+		list.remove(remove);
+		return(list);
+	}
+	
+	
 //	@Override
 //	public String toString() {
 //		
