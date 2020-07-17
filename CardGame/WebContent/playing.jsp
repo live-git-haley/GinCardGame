@@ -21,13 +21,19 @@
 <body>
 	<h1>Welcome to Gin</h1>
 	
-	<%
 	
+	<% 
 	boolean p1 = (boolean)session.getAttribute("player1Bool");
 	boolean p2 = (boolean)session.getAttribute("player2Bool");
+	
+	
+
+	System.out.println();
+	System.out.println("playing.jsp");
+	
+	
 	boolean winner = false;
-	
-	
+
 	Pathnames pathnames = new Pathnames();
 	String[] list = pathnames.getfileList();
 
@@ -40,34 +46,40 @@
 	
 	Stack<Card> trash  = (Stack<Card> )session.getAttribute("trash" );
 	
-	Card draw = (Card) session.getAttribute("cardDraw");
 	
-	System.out.println("****  REPLACE SERVLET  ****");
+	
+	Card top = trash.pop();	
+	
+	System.out.println("****  PLAYING SERVLET  ****");
 	System.out.println("Player 1: boolean --> " + p1);
 	System.out.println("Player 2: boolean --> " + p2);
 	System.out.println();
-	System.out.print("draw card" + draw.toString());
+	System.out.print("draw card" + top.toString());
 
+
+	String topc = top.getFilename(top);
+	session.setAttribute("trash", trash);
+	session.setAttribute("cardDraw", top);
 
 	
-
-
+	
 	Collections.sort(player1, new CardComparator());
 	Collections.sort(player2, new CardComparator());
+
 	if(p1){
-	 %>
 	
+	%>
 
 	<h2>Player 1's Cards</h2>
 
-
 	<div class="main">
 
-		<%
+		
+	<% 
 		int count = 0;
 		for (Card c : player1) {
 			String file = c.getFilename(c);
-			String card = Integer.toString(c.getSuite()) +" SPACE " + Integer.toString(c.getNum());
+			
 
 		%>
 		<form action="/CardGame/ReplaceServlet">
@@ -76,9 +88,8 @@
 		
 		<img alt="Image not found" src=<%out.print(file);%> height="150px"
 			width="110px">
-		<input type = "radio" name = "buttonclick" onclick="this.form.submit()" value="<%=count%>">
-		</div>
 		
+		</div>
 		<%
 		count++;
 			};
@@ -88,25 +99,20 @@
 		
 		</form>
 		
+		
 	</div>
+<%} if(p2){ %>
+	<br>
+		<h2>Player 2's Cards</h2>
+		<div class="main">
 	
-	<%}
-	
-	
-	if(p2){%>
-
-	
-	<h2>Player 2's Cards</h2>
-
-
-	<div class="main">
-
-		<%
+	<% 
 		int count = 0;
 		for (Card c : player2) {
 			String file = c.getFilename(c);
 			String card = Integer.toString(c.getSuite()) +" SPACE " + Integer.toString(c.getNum());
-
+			
+		
 		%>
 		<form action="/CardGame/ReplaceServlet">
 		
@@ -114,38 +120,71 @@
 		
 		<img alt="Image not found" src=<%out.print(file);%> height="150px"
 			width="110px">
-		<input type = "radio" name = "buttonclick" onclick="this.form.submit()" value="<%=count%>">
 		</div>
 		
 		<%
 		count++;
-			};
+			}
 		
 		
 		%>
 		
 		</form>
 		
+	
 	</div>
-
-	
-	<%} %>
-
 	<br>
-	
-	<h1> Please choose a card to replace with the card you drew below</h1>
 	<%
 	
-	String firstN = draw.getFilename(draw);
+		
+}
+
 	%>
+	<h2> This is the top of the pile</h2>
 	<div class="top">
-		<img alt="Image not found" src=<%out.print(firstN);%> height="150px"
+		<img alt="Image not found" src=<%out.print(topc);%> height="150px"
 			width="110px">
 
 	</div>
 
 
+	<%
+		//session.setAttribute("choice", "");
+	if (session.getAttribute("choice") == null)
+		session.setAttribute("choice", "");
+	
+	//System.out.print(session.getAttribute("choice"));
+	%>
 
+	<form action="/CardGame/ChoiceServlet">
+		<input type="hidden" name="choice" value="keep" />
+
+		<button type="submit" class="btn btn-success">Keep</button>
+
+		<%
+			if (session.getAttribute("choice").equals("keep")) {
+				System.out.println("Keep was picked");
+				
+
+			}
+				
+		%>
+	</form>
+	<form action="/CardGame/ChoiceServlet">
+		<input type="hidden" name="choice" value="draw" />
+		<button type="submit" class="btn btn-Primary">Draw</button>
+		<%
+			if (session.getAttribute("choice").equals("draw")) {
+			
+		%>
+
+		<%
+			}
+		
+		%>
+	</form>
+	
+	
 	
 
 

@@ -2,6 +2,7 @@ package CardGameJinApp.Practice;
 
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.Stack;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,25 +19,14 @@ public class ChoiceServlet extends HttpServlet {
 		String choice = req.getParameter("choice");
 		// resp.getWriter().println("<b>" + choice + "</b>");
 		HttpSession httpSession = req.getSession();
+		boolean p11 = (boolean)httpSession.getAttribute("player1Bool");
+		boolean p22 = (boolean)httpSession.getAttribute("player2Bool");
+
 		
 		httpSession.setAttribute("choice", choice);
-		
-//		Enumeration<String> names = httpSession.getAttributeNames();
-//        while (names.hasMoreElements()) {
-//            String name = names.nextElement();
-//            Object value = httpSession.getAttribute(name);
-//            System.out.print(value.toString());
-//        }
-//		
-//		
-		
-		
-		System.out.println("This is the CHOICE SERVLET>>>>>> ");
-		System.out.println( "This is the button picked "+ httpSession.getAttribute("choice"));
-		System.out.println( "This is player1 Bool "+ httpSession.getAttribute("player1Bool"));
-		System.out.println( "This is player2 Bool "+ httpSession.getAttribute("player2Bool"));
-		System.out.println( "This is the card Drawn "+ httpSession.getAttribute("cardDraw"));
-		System.out.println( "This is player1's cards "+ httpSession.getAttribute("player1cards"));
+		System.out.println("Player 1 boolean: " + p11);
+		System.out.println("Player 2 Boolean : " + p22);
+
 		
 		if(choice.equals("keep")) {
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("replace.jsp");
@@ -44,8 +34,37 @@ public class ChoiceServlet extends HttpServlet {
 		} 
 		
 		if(choice.equals("draw")) {
-			RequestDispatcher requestDispatcher = req.getRequestDispatcher("PlayGame.jsp");
+			RequestDispatcher requestDispatcher = req.getRequestDispatcher("draw.jsp");
 			requestDispatcher.forward(req, resp);
 		}
+		
+		if(choice.equals("throw")) {
+			RequestDispatcher requestDispatcher = req.getRequestDispatcher("playing.jsp");
+			boolean p1 = (boolean)httpSession.getAttribute("player1Bool");
+			boolean p2 = (boolean)httpSession.getAttribute("player2Bool");
+			Stack<Card> trash  = (Stack<Card> )httpSession.getAttribute("trash" );
+			Card cardDraw = (Card) httpSession.getAttribute("cardDraw");
+			
+			trash.add(cardDraw);
+			
+			httpSession.setAttribute("trash", trash);
+
+			boolean false1 = false;
+			boolean true1 = true;
+			if(p1){
+				httpSession.setAttribute("player1Bool", false1);
+				httpSession.setAttribute("player2Bool", true1);
+
+			}
+			else{
+				httpSession.setAttribute("player2Bool", false1);
+				httpSession.setAttribute("player1Bool", true1);
+				
+			}
+			
+				
+			requestDispatcher.forward(req, resp);
+			} 
+			
 	}
 }

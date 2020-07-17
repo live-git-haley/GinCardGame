@@ -13,60 +13,8 @@
 <html>
 <head>
 
-<style>
-body {
-	background-color: green;
-	color: white;
-}
+<link rel="stylesheet"  type="text/css" href="styles.css"/>
 
-title {
-	color: white;
-}
-
-.radio-input{
-	float: bottom;
-}
-
-#over img {
-	margin-left: auto;
-	margin-right: auto;
-	display: block;
-}
-
-div.main {
-	padding-top: 25px;
-	padding-right: 30px;
-	padding-bottom: 50px;
-	padding-left: 30px;
-	background-color: red;
-	display: table-cell;
-	vertical-align: middle;
-	text-align: center;
-	width: 3000px;
-}
-
-div.top {
-	padding-top: 50px;
-	padding-right: 30px;
-	padding-bottom: 50px;
-	padding-left: 30px;
-	background-color: dark-green;
-	display: table-cell;
-	vertical-align: middle;
-	text-align: center
-}
-
-h2 {
-	text-align: center;
-}
-
-.cards{
-background-color: blue;
-
-  overflow-x: hidden;
-  float: right;
-}
-</style>
 <meta charset="UTF-8">
 <title>Welcome to Gin</title>
 </head>
@@ -95,9 +43,7 @@ background-color: blue;
 		Stack<Card> trash = new Stack<>();
 		boolean p1 = true;
 		boolean p2 = false;
-		//System.out.println(cards.toString());
-		//System.out.println(cards);
-		//Queue<Player> usedCards = new LinkedList<>();
+
 		//
 		List<Card> player1 = new ArrayList<Card>();
 		List<Card> player2 = new ArrayList<Card>();
@@ -135,15 +81,14 @@ background-color: blue;
 		<img alt="Image not found" src=<%out.print(file);%> height="150px"
 			width="110px">
 		
-		<input type="hidden" name="pickcard" value="<%out.print(card);%>" />
-		<button type="submit" class="btn btn-success"><%out.print(card);%></button>
 		</div>
 		
-		</form>
+		
 		
 		<%
-		}
+		};
 		%>
+		</form>
 		
 	</div>
 

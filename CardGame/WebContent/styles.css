@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+
+
+body {
+	background-color: green;
+	color: white;
+}
+
+title {
+	color: white;
+}
+
+.radio-input{
+	float: bottom;
+}
+
+#over img {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+div.main {
+	padding-top: 25px;
+	padding-right: 30px;
+	padding-bottom: 50px;
+	padding-left: 30px;
+	background-color: red;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center
+}
+
+div.top {
+	padding-top: 50px;
+	padding-right: 30px;
+	padding-bottom: 50px;
+	padding-left: 30px;
+	background-color: dark-green;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center
+}
+
+h2 {
+	text-align: center;
+}
+
+.cards{
+background-color: purple;
+
+  float: left;
+}
